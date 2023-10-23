@@ -39,11 +39,70 @@ const TabItem: FC<TabProps> = ({
     const translateY = animatedActiveIndex.value - 1 === index ? -35 : 20;
     const iconPositionX = iconPosition - index * ICON_SIZE;
     return {
-        width: ICON_SIZE,
-        height: ICON_SIZE,
-        transform: [
-            
-        ]
-    }
+      width: ICON_SIZE,
+      height: ICON_SIZE,
+      transform: [
+        {translateY: withTiming(translateY)},
+        {translateX: iconPositionX - index + ICON_SIZE / 2},
+      ],
+    };
   });
+  const labelContainerStyle = useAnimatedStyle(() => {
+    const translateY = animatedActiveIndex.value - 1 === index ? 36 : 100;
+    return {
+      transform: [
+        {translateY: withTiming(translateY)},
+        {translateX: labelPosition - LABEL_WIDTH / 2},
+      ],
+    };
+  });
+  const iconColor = useSharedValue(
+    activeIndex === index + 1 ? 'white' : 'rgba(128, 128, 128, 0.8)',
+  );
+
+  useEffect(() => {
+    animatedActiveIndex.value = activeIndex;
+    if (activeIndex === index + 1) {
+      iconColor.value = withTiming('white');
+    } else {
+      iconColor.value = withTiming('rgba(128, 128, 128, 0.8)');
+    }
+  }, [activeIndex]);
+
+  const animatedIconProps = useAnimatedProps(() => ({
+    color: iconColor.value,
+  }));
+
+  return (
+    <>
+      <Animated.View style={[tabStyle]}>
+        <Pressable
+          testID={`tab${label}`}
+          hitSlop={{top: 30, bottom: 30, left: 50, right: 50}}>
+          <AnimatedIcon
+            name={icon}
+            size={25}
+            animatedProps={animatedIconProps}
+          />
+        </Pressable>
+      </Animated.View>
+      <Animated.View style={[labelContainerStyle, styles.labelContainer]}>
+        <Text style={styles.label}>{label}</Text>
+      </Animated.View>
+    </>
+  );
 };
+
+export default TabItem;
+
+const styles = StyleSheet.create({
+  labelContainer: {
+    position: 'absolute',
+    alignItems: 'center',
+    width: LABEL_WIDTH,
+  },
+  label: {
+    color: 'rgba(128, 128, 128, 0.8)',
+    fontSize: 17,
+  },
+});
