@@ -1,12 +1,9 @@
 import {StyleSheet, Text, View} from 'react-native';
-import {FC} from 'react';
-import Animated, {useAnimatedStyle, SharedValue} from 'react-native-reanimated';
-import {AnimatedView} from 'react-native-reanimated/lib/typescript/reanimated2/component/View';
-
+import React, {FC} from 'react';
+import Animated, {SharedValue, useAnimatedStyle} from 'react-native-reanimated';
 type CircleProps = {
   circleX: SharedValue<number>;
 };
-
 const circleContainerSize = 50;
 
 const AnimatedCircle: FC<CircleProps> = ({circleX}) => {
@@ -28,7 +25,7 @@ const styles = StyleSheet.create({
     width: circleContainerSize,
     borderRadius: circleContainerSize,
     height: circleContainerSize,
-    backgroundColor: '#0ea5s9',
+    backgroundColor: '#0C4767',
     justifyContent: 'center',
     alignItems: 'center',
   },

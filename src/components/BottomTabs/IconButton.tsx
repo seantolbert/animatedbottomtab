@@ -17,6 +17,7 @@ export type IconLibrary = {
 const ICON_LIBRARIES: IconLibrary = {
   Feather: () => Feather,
   MaterialCommunityIcons: () => MaterialCommunityIcons,
+  // add more libraries as needed
 };
 
 export type IconButtonProps = PressableProps & {
@@ -27,7 +28,7 @@ export type IconButtonProps = PressableProps & {
   iconColor?: string;
   roundness?: 'full' | 'medium' | 'small';
   style?: StyleProp<ViewStyle>;
-  onPress: () => void;
+  onPress?: () => void;
 };
 
 const IconButton: FC<IconButtonProps> = ({
@@ -67,6 +68,8 @@ const IconButton: FC<IconButtonProps> = ({
   );
 };
 
+export default IconButton;
+
 const styles = StyleSheet.create({
   button: {
     borderRadius: 40,
@@ -77,7 +80,7 @@ const styles = StyleSheet.create({
     opacity: 0.9,
   },
   containedButton: {
-    backgroundColor: '#2196f3',
+    backgroundColor: '#2196F3',
   },
   textButton: {
     backgroundColor: 'transparent',
@@ -85,7 +88,7 @@ const styles = StyleSheet.create({
   outlineButton: {
     backgroundColor: 'transparent',
     borderWidth: 1,
-    borderColor: '#2196f3',
+    borderColor: '#2196F3',
   },
   fullRoundness: {
     borderRadius: 100,
@@ -104,6 +107,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.18,
     shadowRadius: 1.0,
+
     elevation: 1,
   },
 });
